@@ -83,7 +83,18 @@ class PeopleController extends Controller
      */
     public function update(StorePeopleRequest $request, $id)
     {
-        //
+        $data = array(
+            'name' => $request->get('name'),
+            'age' => $request->get('age'),
+            'city' => $request->get('city'),
+            );
+                $update = People::where('id', $id)->update($data);
+        
+                if ($update) {
+                    return response()->json(['status' => true, 'message' => 'Profile successfully updated.', 'data' => People::find($id)], 200);
+                }
+        
+                return response()->json(['status' => false, 'message' => 'Failed to update profile. Please try again.'], 500);
     }
 
     /**
