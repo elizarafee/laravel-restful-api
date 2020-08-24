@@ -34,9 +34,22 @@ class PeopleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePeopleRequest $request)
     {
-        //
+        $people = [
+            'name' => $request->get('name'),
+            'age' => $request->get('age'),
+            'city' => $request->get('city'),
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+
+        $store = People::create($people);
+
+        if ($store) {
+            return response()->json(['status' => true, 'message' => 'People successfully created.', 'data' => $store], 201);
+        }
+
+        return response()->json(['status' => false, 'message' => 'Failed to store people. Please try again.'], 500);
     }
 
     /**
