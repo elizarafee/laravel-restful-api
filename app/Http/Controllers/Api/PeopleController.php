@@ -60,7 +60,7 @@ class PeopleController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(['status' => true, 'data' => People::find($id)]);
     }
 
     /**
