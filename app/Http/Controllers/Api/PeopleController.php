@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePeopleRequest;
+use App\People;
 
 class PeopleController extends Controller
 {
@@ -14,7 +15,7 @@ class PeopleController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(['status' => true, 'data' => People::all()]);
     }
 
     /**
