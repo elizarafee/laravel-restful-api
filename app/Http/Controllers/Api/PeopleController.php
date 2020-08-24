@@ -88,13 +88,13 @@ class PeopleController extends Controller
             'age' => $request->get('age'),
             'city' => $request->get('city'),
             );
-                $update = People::where('id', $id)->update($data);
+        $update = People::where('id', $id)->update($data);
         
-                if ($update) {
-                    return response()->json(['status' => true, 'message' => 'Profile successfully updated.', 'data' => People::find($id)], 200);
-                }
+        if ($update) {
+            return response()->json(['status' => true, 'message' => 'Profile successfully updated.', 'data' => People::find($id)], 200);
+        }
         
-                return response()->json(['status' => false, 'message' => 'Failed to update profile. Please try again.'], 500);
+        return response()->json(['status' => false, 'message' => 'Failed to update profile. Please try again.'], 500);
     }
 
     /**
@@ -105,6 +105,13 @@ class PeopleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $person = People::find($id);
+        $delete = $person->delete();
+
+        if ($delete) {
+            return response()->json(['status' => true, 'message' => 'Profile successfully deleted.', 'data' => 'Datas are not available'], 200);
+        }
+        return response()->json(['status' => false, 'message' => 'Failed to delete profile. Please try again.'], 500);
+
     }
 }
